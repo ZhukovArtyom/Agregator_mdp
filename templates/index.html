@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Новостной агрегатор</title>
+    <link rel="stylesheet" href="/static/style.css">
+    
+</head>
+<body>
+    <div class="header">
+        <img src="/static/images/logo.png" alt="Логотип" class="logo"> <!-- Логотип слева -->
+        <h1>АГРЕГАТОР</h1> <!-- Название по центру -->
+    </div>
+
+    <div class="container">
+        <h1>Новостной агрегатор университетов</h1>
+        <div id="statusArea">
+            <button id="startScan">Запустить сканирование</button>
+            <div id="loading" style="display: none;">
+                <div class="loader"></div>
+                <p id="progressText">Идёт сбор новостей...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="/static/images/logo.png" alt="Логотип" class="logo"> <!-- Логотип в подвале -->
+    </div>
+    
+    <script src="/static/script.js"></script>
+</body>
+</html>

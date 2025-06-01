@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Новости университета</title>
+    <link rel="stylesheet" href="/static/style.css">
+    
+</head>
+<body>
+    <div class="header">
+        <img src="/static/images/logo.png" alt="Логотип" class="logo">
+        <h1>Агрегатор</h1>
+    </div>
+
+    <div class="container">
+        <h1 id="uniTitle">Новости</h1>
+        
+        <div class="categories">
+            <select id="categoryFilter" onchange="filterNews()">
+                <option value="all">Все категории</option>
+                <!-- Категории будут добавлены через JS -->
+            </select>
+        </div>
+        
+        <div class="news-grid" id="newsGrid">
+            <!-- Новости будут добавлены через JS -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="/static/images/logo.png" alt="Логотип" class="logo">
+    </div>
+    
+    <script src="/static/script.js"></script>
+</body>
+</html>

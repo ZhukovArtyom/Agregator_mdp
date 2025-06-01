@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Выбор университета</title>
+    <link rel="stylesheet" href="/static/style.css">
+    
+</head>
+<body>
+    <div class="header">
+        <img src="/static/images/logo.png" alt="Логотип" class="logo">
+        <h1>Агрегатор</h1>
+    </div>
+
+    <div class="container">
+        <h1>Выберите университет</h1>
+        <div class="university-grid">
+            <div class="uni-card" onclick="selectUni('all')">
+                <img src="/static/images/all.jpg" alt="Все университеты">
+                <button>Все университеты</button>
+            </div>        
+            <div class="uni-card" onclick="selectUni('Ярославский педагогический университет')">
+                <img src="/static/images/yspu.jpg" alt="ЯрПУ">
+                <button>Ярославский педагогический университет</button>
+            </div>
+            <div class="uni-card" onclick="selectUni('ЯрГУ им. П.Г. Демидова')">
+                <img src="/static/images/demidov.jpg" alt="Демидов">
+                <button>ЯрГУ им. Демидова</button>
+            </div>
+            <div class="uni-card" onclick="selectUni('ЯГТУ')">
+                <img src="/static/images/ystu.jpg" alt="ЯГТУ">
+                <button>ЯГТУ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="/static/images/logo.png" alt="Логотип" class="logo">
+    </div>
+    
+    <script src="/static/script.js"></script>
+</body>
+</html>
