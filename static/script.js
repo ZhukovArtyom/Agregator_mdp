@@ -145,7 +145,7 @@ function renderNews(newsData) {
         newsCard.className = 'news-card';
 
         newsCard.innerHTML = `            
-            <img src="${item.Изображение || '/static/images/no-image.png'}" 
+            <img src="${item.Изображение}" 
                     alt="${item.Заголовок}">
             
             <div class="news-content">

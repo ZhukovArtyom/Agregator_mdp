@@ -76,7 +76,7 @@ while count < pages_for_analyse:
         try:
             image = browser.find_element(by="class name", value="wp-post-image").get_attribute(name="src")
         except NoSuchElementException:
-            image = "no_img"
+            image = "/static/images/no-image.jpg"
 
         date = browser.find_element(by="class name", value="entry-date").text
         categories = analyzer.analyze_text(text)
@@ -108,7 +108,7 @@ while count < pages_for_analyse:
         expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, "news-item-header")))
 
     block = browser.find_elements(by="class name", value="news-item-header")
-    while num < len(block):
+    while num < len(block)2:
 
         stat = "Сканирование " + str(count+1) + "-й страницы"
         update_progress("ЯрГУ им. П.Г. Демидова", num, len(block), stat)
@@ -128,7 +128,7 @@ while count < pages_for_analyse:
             image_box = browser.find_element(by="class name", value="news-item-image")
             image = image_box.find_element(by="css selector", value="img").get_attribute(name="src")
         except NoSuchElementException:
-            image = "no_img"
+            image = "/static/images/no-image.jpg"
 
         date = browser.find_element(by="class name", value="b-news__date").text
         categories = analyzer.analyze_text(text)
@@ -179,7 +179,7 @@ while count < pages_for_analyse:
         try:
             image = content_box.find_element(by="css selector", value="img").get_attribute("src")
         except NoSuchElementException:
-            image = "no_img"
+            image = "/static/images/no-image.jpg"
 
         date = content_box.find_element(by="class name", value="page-main-content-news__date").text
         categories = analyzer.analyze_text(text)
