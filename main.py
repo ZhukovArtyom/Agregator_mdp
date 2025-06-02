@@ -108,7 +108,7 @@ while count < pages_for_analyse:
         expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, "news-item-header")))
 
     block = browser.find_elements(by="class name", value="news-item-header")
-    while num < len(block)2:
+    while num < len(block):
 
         stat = "Сканирование " + str(count+1) + "-й страницы"
         update_progress("ЯрГУ им. П.Г. Демидова", num, len(block), stat)
