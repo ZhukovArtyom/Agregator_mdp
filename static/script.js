@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    // Получаем элемент заголовка
+    const uniTitleElem = document.getElementById('uniTitle');
+    if (uniTitleElem) {
+        const uni = new URLSearchParams(window.location.search).get('uni');
+        if (uni && uni !== 'all') {
+            uniTitleElem.textContent = decodeURIComponent(uni);
+        } else {
+            uniTitleElem.textContent = 'Новости всех университетов';
+        }
+}
+
     const startBtn = document.getElementById('startScan');
     const loadingDiv = document.getElementById('loading');
     const progressText = document.getElementById('progressText');
@@ -94,6 +106,8 @@ function renderNews(newsData) {
     // Используем объект для группировки новостей по заголовку
     const groupedNews = {};
 
+    
+
     newsData.forEach(item => {
         if (!groupedNews[item.Заголовок]) {
             groupedNews[item.Заголовок] = {
@@ -111,11 +125,13 @@ function renderNews(newsData) {
         const newsCard = document.createElement('div');
         newsCard.className = 'news-card';
 
-        newsCard.innerHTML = `
+        newsCard.innerHTML = `            
             <img src="${item.Изображение || '/static/images/no-image.png'}" 
                     alt="${item.Заголовок}">
+            
             <div class="news-content">
                 <h3>${item.Заголовок}</h3>
+                <div class="University_name">${item.Университет}</div>
                 <div class="news-category">${categoriesText}</div>
                 <p><small>${item.Дата}</small></p>
                 <a href="${item.Ссылка}" target="_blank" class="news-link">

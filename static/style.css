@@ -139,6 +139,17 @@ button:hover {
     margin: 5px 0;
 }
 
+
+.University_name{
+    display: inline-block;
+    background-color: rgb(197, 182, 98);
+    padding: 8px;
+    border-radius: 4px;
+    color: white;
+    
+    
+}
+
 .categories {
     margin: 20px 0;
 }
