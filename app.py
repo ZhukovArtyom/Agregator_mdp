@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify, request
+import json
+from flask import Flask, render_template, jsonify, send_from_directory, request
 import subprocess
 import pandas as pd
 import os
@@ -13,16 +14,51 @@ data_ready = False
 def run_data_collection():
     global data_ready
     try:
+        # Инициализируем прогресс
+        with open('progress.json', 'w') as f:
+            json.dump({
+                "university": "Подготовка...",
+                "current": 0,
+                "total": 100,
+                "progress": 0,
+                "status": "Запуск сканирования"
+            }, f)
+        
         # Запускаем ваш скрипт сбора данных
         subprocess.run(['python', 'main.py'], check=True)
-        data_ready = True  # Устанавливаем флаг после завершения
-        print("Сбор данных завершён успешно!")
+        data_ready = True
+        
+        # Финальный статус
+        with open('progress.json', 'w') as f:
+            json.dump({
+                "university": "Все университеты",
+                "current": 100,
+                "total": 100,
+                "progress": 100,
+                "status": "Завершено!"
+            }, f)
+            
     except Exception as e:
-        print(f"Ошибка при сборе данных: {e}")
+        print(f"Ошибка: {e}")
+        with open('progress.json', 'w') as f:
+            json.dump({
+                "university": "Ошибка",
+                "current": 0,
+                "total": 100,
+                "progress": 0,
+                "status": f"Ошибка: {str(e)}"
+            }, f)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/progress.json')
+def get_progress():
+    try:
+        return send_from_directory('.', 'progress.json')
+    except FileNotFoundError:
+        return jsonify({"error": "Прогресс не доступен"}), 404
 
 @app.route('/start_scan', methods=['POST'])
 def start_scan():

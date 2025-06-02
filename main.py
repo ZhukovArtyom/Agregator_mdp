@@ -1,3 +1,4 @@
+import json
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
@@ -25,6 +26,23 @@ def add_news_to_data(university, header, image, date, link, categories):
         for category in categories:
             data.append({"Университет": university, "Заголовок": header,
                          "Изображение": image, "Дата": date, "Ссылка": link, "Категория": category,})
+            
+
+def update_progress(university, current, total, status="В процессе"):
+    progress_data = {
+        "university": university,
+        "current": current,
+        "total": total,
+        "progress": int((current / total) * 100),
+        "status": status
+    }
+    with open("progress.json", "w", encoding="utf-8") as f:
+        json.dump(progress_data, f)
+
+
+
+
+
 
 # Обработка новостей для Ярославского педагогического университета
 ped_page = 'https://news.yspu.org/cat/news'
@@ -37,7 +55,13 @@ while count < pages_for_analyse:
         expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, "entry-title")))
 
     block = browser.find_elements(by="class name", value="entry-title")
+
+    
     while num < len(block):
+
+        stat = "Сканирование " + str(count+1) + "-й страницы"
+        update_progress("Ярославский педагогический университет", num, len(block), stat)
+
         block = browser.find_elements(by="class name", value="entry-title")
         news_header = block[num].find_element(by='css selector', value='a')
         header_text = news_header.text
@@ -71,6 +95,8 @@ while count < pages_for_analyse:
         count = 0
         break
 
+
+
 # Обработка новостей для ЯрГУ им. П.Г. Демидова
 dem_page = 'https://www.uniyar.ac.ru/news/main1443000'
 browser.get(dem_page)
@@ -83,6 +109,10 @@ while count < pages_for_analyse:
 
     block = browser.find_elements(by="class name", value="news-item-header")
     while num < len(block):
+
+        stat = "Сканирование " + str(count+1) + "-й страницы"
+        update_progress("ЯрГУ им. П.Г. Демидова", num, len(block), stat)
+
         block = browser.find_elements(by="class name", value="news-item-header")
         news_header = block[num].find_element(by='css selector', value='a')
         header_text = news_header.text
@@ -128,6 +158,10 @@ while count < pages_for_analyse:
 
     block = browser.find_elements(by="class name", value="news-item--page")
     while num < len(block):
+
+        stat = "Сканирование " + str(count+1) + "-й страницы"
+        update_progress("ЯГТУ", num, len(block), stat)
+
         block = browser.find_elements(by="class name", value="news-item--page")
         one_block = block[num]
         news_header = one_block.find_element(by='class name', value='news-item__title')

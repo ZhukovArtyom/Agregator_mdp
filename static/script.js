@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (startBtn) {
         startBtn.addEventListener('click', function() {
             startBtn.disabled = true;
+            startBtn.hidden = true;
             loadingDiv.style.display = 'block';
             progressText.textContent = 'Идёт сбор новостей...';
 
@@ -28,7 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error('Ошибка:', error);
                     progressText.textContent = 'Ошибка при запуске сканирования';
                 });
+            setTimeout(fetchProgress, 500);
         });
+
+        
     }
 
     // Инициализация на странице новостей
@@ -37,6 +41,21 @@ document.addEventListener('DOMContentLoaded', function() {
         loadNewsData(uni);
     }
 });
+
+
+function fetchProgress() {
+    fetch('/progress.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("university").textContent = data.university;
+            document.getElementById("progress").style.width = data.progress + "%";
+            document.getElementById("progress").textContent = data.progress + "%";
+            document.getElementById("status").textContent = data.status;
+
+            setTimeout(fetchProgress, 500);
+        })
+        .catch(error => console.log("Ошибка:", error));
+}
 
 // Единая функция проверки статуса
 function checkScanStatus() {
